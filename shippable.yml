@@ -1,0 +1,26 @@
+# Language setting
+language: node_js
+
+# Version number
+node_js:
+  - "5.3"
+
+services:
+  - selenium
+
+build:
+  ci:
+    - sudo npm install
+    - export DISPLAY=:99.0
+    - xvfb-run --server-args="-ac" npm test
+
+integrations:
+  deploy:
+    - integrationName: "sample-confused-integration"
+      type: aws
+      target: eb_paas
+      platform: "Node.js"
+      application_name: sample-node-eb-paas-app
+      env_name: sample-node-eb-paas-env
+      region: eu-west-1
+	  
